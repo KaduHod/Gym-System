@@ -3,7 +3,7 @@ const prisma = require('../database/prisma/client')
 
 
 router.get('/', (req, res)=>{
-    res.render('home')
+    res.send('login')
 })
 
 
