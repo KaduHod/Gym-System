@@ -1,8 +1,6 @@
 const express = require('express')
 const app = express()
-require('dotenv/config')
-
-
+require('dotenv/config') 
 /**
  * Forma de ler JSON
  * middlewares
@@ -23,7 +21,7 @@ const alunoController = require('./src/controllers/alunoController')
 const professorController = require('./src/controllers/professorController')
 
 app.use('/', indexController)
-app.use('/treinos', treinoController)
+app.use('/treino', treinoController)
 app.use('/aluno', alunoController)
 app.use('/professor', professorController)
 

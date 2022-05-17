@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Aluno {
+  id                    Int               @id @default(autoincrement())
+  nome                  String            @db.VarChar(255)
+  email                 String            @unique @db.VarChar(255)        
+  cpf                   String?           @db.Char(11)
+  professor             Professor?        @relation(fields: [professorId], references: [id])
+  professorId           Int     
+  treinos               Treino[]    
+  dataNascimento        DateTime?     
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+} 
+
+model Professor {
+  id                    Int               @id @default(autoincrement())
+  nome                  String            @db.VarChar(255)
+  alunos                Aluno[]         
+  treinos               Treino[]             
+  dataNascimento        DateTime?         
+  email                 String            @unique @db.VarChar(255)
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+}
+
+model Treino {
+  id                    Int               @id @default(autoincrement())
+  nome                  String            @db.VarChar(255)
+  aluno                 Aluno             @relation(fields: [alunoId], references: [id])
+  alunoId               Int       
+  professor             Professor         @relation(fields: [professorId], references: [id])
+  professorId           Int       
+  exercicios            Exercicio[]
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+}
+
+model Exercicio {
+  id                    Int               @id @default(autoincrement())
+  nome                  String            @db.VarChar(255)
+  descricao             String            @db.Text
+  video                 String            @db.VarChar(255)
+  tipo                  TipoExercicio     @relation(fields: [tipoId], references: [id])
+  tipoId                Int
+  treinos               Treino[]
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+}
+
+//Força, resisitencia,
+model TipoExercicio {
+  id                    Int               @id  @default(autoincrement())
+  descricao             String            @db.VarChar(255)
+  exercicio             Exercicio[]
+}
+
+//tipo de serio como lenta excentrica ou algo do tipo
+model Execucao {
+  id                    Int               @id @default(autoincrement())
+  descricao             String            @db.VarChar(255)
+}
