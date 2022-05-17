@@ -6,8 +6,8 @@ const prisma = require('../database/prisma/client')
 router.get('/', async (req, res) => {
     try {
         const alunos = await prisma.aluno.findMany()
-
-        res.send(alunos)
+        
+        res.render('alunos', {alunos: ['oi']})
     } catch (error) {
         handleErr( error, res, 'Erro ao listar alunos' )
     }

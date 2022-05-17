@@ -42,6 +42,7 @@ require('dotenv/config')
     const professorController = require(pathController + 'professorController' )
     const loginController     = require(pathController + 'loginController' )
     const registerController  = require(pathController + 'registerController' )
+    const exercicioController = require(pathController + 'exercicioController')
 
     /**
      * Rotas bases
@@ -52,6 +53,7 @@ require('dotenv/config')
     app.use('/treino',    treinoController)
     app.use('/aluno',     alunoController)
     app.use('/professor', professorController)
+    app.use('/exercicio',  exercicioController)
     
 
 
