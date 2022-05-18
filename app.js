@@ -15,7 +15,7 @@ require('dotenv/config')
     ) 
     app.use(express.json())
 
-    app.use(express.static(__dirname + './public'))
+    app.use(express.static(__dirname + '/public'))
 
     /**
      * Tamplate Engine

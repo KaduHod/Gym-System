@@ -1,0 +1,33 @@
+<div class="center">
+    <h1>Registre-se</h1>
+    <form action="/register" id="form" class="flexClolumn" method="POST">
+        
+
+        <input name="nome" placeholder="Digite a sua nome" type="text" />
+
+        <input name="cpf" placeholder="Digite o seu cpf" type="text" />
+
+        <input name="telefone" placeholder="Digite o seu telefone" type="text" />
+
+        <input name="dataNascimento" placeholder="Data de nascimento" type="date" />
+
+        <input name="email" required placeholder="Digite o seu email" type="email" />
+        
+        <input name="senha" required placeholder="Digite a sua senha" type="password" />
+        
+        <input type="submit" value="Registre-se" />
+    </form>
+    {{#if message }}
+      <p>
+        <label style="color:Red">{{ message }}</label>
+      </p>
+    {{/if}}
+    <p>
+      <a href="/users/forgot">Esqueceu sua senha?</a> | <a href="/users/signup">Não possui cadastro?</a>
+    </p>
+</div>
+<script src="/js/handleFormRegister.js"></script>
+<script>
+  const form = document.getElementById('form')
+  form.addEventListener('submit', handleRegisterProfile)
+</script>

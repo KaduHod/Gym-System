@@ -1,0 +1,18 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.flexClolumn{
+    display: flex;
+    flex-direction: column;
+
+}
+.flexClolumn input{
+    width: 300px;
+    margin: 5px;
+}

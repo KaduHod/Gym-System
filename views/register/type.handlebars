@@ -1,0 +1,11 @@
+<div class="center">
+    <h1>Registre-se como</h1>
+    <a href="/register/type/{{profile.id}}/Aluno" class="btn btn-success">Aluno</a>
+    <a href="/register/type/{{profile.id}}/Profesor"   class="btn btn-success">Professor</a>
+    
+    {{#if message }}
+      <p>
+        <label style="color:Red">{{ message }}</label>
+      </p>
+    {{/if}}
+</div>

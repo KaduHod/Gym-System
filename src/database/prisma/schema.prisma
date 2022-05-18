@@ -5,70 +5,102 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+// model ProfessorProfile {
+//   id          Int         @id @unique @default(autoincrement())
+//   email       String      @unique @db.VarChar(255)
+//   senha       String      @unique
+//   professor   Professor?   
+//   professorId Int
+  
+// }
+// model AlunoProfile {
+//   id          Int         @id @unique @default(autoincrement())
+//   email       String      @unique @db.VarChar(255)
+//   senha       String      @unique
+//   aluno       Aluno?   
+//   alunoId Int
+// }
 
-model Aluno {
-  id                    Int               @id @default(autoincrement())
-  nome                  String            @db.VarChar(255)
-  email                 String            @unique @db.VarChar(255)        
-  cpf                   String?           @db.Char(11)
-  professor             Professor?        @relation(fields: [professorId], references: [id])
-  professorId           Int     
-  treinos               Treino[]    
-  dataNascimento        DateTime?     
-  createdAt             DateTime          @default(now())
-  updatedAt             DateTime          @updatedAt
-} 
-
-model Professor {
-  id                    Int               @id @default(autoincrement())
-  nome                  String            @db.VarChar(255)
-  alunos                Aluno[]         
-  treinos               Treino[]             
-  dataNascimento        DateTime?         
-  email                 String            @unique @db.VarChar(255)
-  createdAt             DateTime          @default(now())
-  updatedAt             DateTime          @updatedAt
+model Profile{
+  id             Int          @id @default(autoincrement())
+  nome           String?       
+  cpf            String?       
+  senha          String 
+  email          String 
+  telefone       String?      
+  aluno          Aluno?       @relation(fields: [alunoId], references: [id])
+  alunoId        Int? 
+  professor      Professor?   @relation(fields: [profesorId], references: [id])
+  profesorId     Int?   
+  online         Boolean      @default(false)
+  type           String?      
+  userId         Int?         @unique
+  dataNascimento DateTime?     
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now())
 }
 
+
+
+model Aluno {
+  id             Int        @id @default(autoincrement())
+  professor      Professor? @relation(fields: [professorId], references: [id])
+  professorId    Int        
+  treinos        Treino[]
+  profile        Profile?   
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Professor {
+  id            Int        @id @default(autoincrement())
+  creef         String?     
+  alunos        Aluno[]       
+  treinos       Treino[]      
+  profile       Profile?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}     
+
 model Treino {
-  id                    Int               @id @default(autoincrement())
-  nome                  String            @db.VarChar(255)
-  aluno                 Aluno             @relation(fields: [alunoId], references: [id])
-  alunoId               Int       
-  professor             Professor         @relation(fields: [professorId], references: [id])
-  professorId           Int       
-  exercicios            Exercicio[]
-  createdAt             DateTime          @default(now())
-  updatedAt             DateTime          @updatedAt
+  id          Int         @id @default(autoincrement())
+  nome        String      @db.VarChar(255)
+  aluno       Aluno       @relation(fields: [alunoId], references: [id])
+  alunoId     Int
+  professor   Professor   @relation(fields: [professorId], references: [id])
+  professorId Int
+  exercicios  Exercicio[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
 
 model Exercicio {
-  id                    Int               @id @default(autoincrement())
-  nome                  String            @db.VarChar(255)
-  descricao             String            @db.Text
-  video                 String            @db.VarChar(255)
-  tipo                  TipoExercicio     @relation(fields: [tipoId], references: [id])
-  tipoId                Int
-  treinos               Treino[]
-  createdAt             DateTime          @default(now())
-  updatedAt             DateTime          @updatedAt
+  id        Int           @id @default(autoincrement())
+  nome      String        @db.VarChar(255)
+  descricao String        @db.Text
+  video     String        @db.VarChar(255)
+  tipo      TipoExercicio @relation(fields: [tipoId], references: [id])
+  tipoId    Int
+  treinos   Treino[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 }
 
 //Força, resisitencia,
 model TipoExercicio {
-  id                    Int               @id  @default(autoincrement())
-  descricao             String            @db.VarChar(255)
-  exercicio             Exercicio[]
+  id        Int         @id @default(autoincrement())
+  nome      String      @db.Char(11)
+  descricao String      @db.VarChar(255)
+  exercicio Exercicio[]
 }
 
 //tipo de serio como lenta excentrica ou algo do tipo
 model Execucao {
-  id                    Int               @id @default(autoincrement())
-  descricao             String            @db.VarChar(255)
+  id        Int    @id @default(autoincrement())
+  descricao String @db.VarChar(255)
 }

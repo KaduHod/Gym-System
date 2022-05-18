@@ -1,4 +1,4 @@
-const handleErr = require('../../helper/consoleError')
+const {handleErr} = require('../../helper/handles')
 const router = require('express').Router()
 const prisma = require('../database/prisma/client')
 
