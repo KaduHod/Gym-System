@@ -2,8 +2,11 @@ const express = require('express')
 const app = express()
 const path = require('path');
 const { engine } = require('express-handlebars')
+const passport = require('passport')
+const session = require('express-session')
 require('dotenv/config') 
-
+require('./services/auth')(passport)
+//configPassport(passport)
     /**
      * Forma de ler JSON
      * middlewares
@@ -15,6 +18,21 @@ require('dotenv/config')
     ) 
     app.use(express.json())
 
+    /**
+     * Session
+     */
+    app.use(session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        cookie: { maxAge: 120 * 60 * 1000 }
+    }))
+    app.use(passport.initialize())
+    app.use(passport.session)
+
+    /**
+     * Arquivos estaticos
+     */
     app.use(express.static(__dirname + '/public'))
 
     /**

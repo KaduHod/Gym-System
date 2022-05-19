@@ -1,24 +1,20 @@
 const router = require('express').Router()
 const prisma = require('../database/prisma/client')
+const { compareHash, makeHash } = require('../../services/crypt')
+const passport = require('passport')
 
 
 router.get('/', async(req, res)=>{
-
-    // const profile = {
-    //     email: 'carlosjr.ribas@gmail.com',
-    //     senha: 12345678,
-    //     online: false,
-    //     type: 'professor',
-    //     userId: null,
-    // }
-
-    // const prismaProfile = await prisma.profile.create( {data : profile} )
-
-    // return res.send(prismaProfile)
     res.render('login/login')
 })
 
-router.post('/')
+/**
+ * Rota managed by passport
+ */
+router.post('/', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+}))
 
 
 

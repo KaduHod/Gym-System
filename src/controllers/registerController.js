@@ -1,9 +1,16 @@
-const router = require('express').Router()
+const { handleErr, handleNullValue, filterNullValues } = require('../../helper/handles')
+const { compareHash, makeHash } = require('../../services/crypt')
+const { handleType } = require('../../events/register/handleType')
 const prisma = require('../database/prisma/client')
-const {handleErr, handleNullValue, filterNullValues} = require('../../helper/handles')
-const handleType = require('../../events/register/handleType')
+const router = require('express').Router()
 
 
+
+
+router.get('/allProfiles', async (req, res) => {
+    const profiles = await prisma.profile.findMany()
+    res.send(profiles);
+})
 router.get('/', (req, res) => {
     res.render('register/register')
 })
@@ -11,11 +18,11 @@ router.get('/', (req, res) => {
 router.post('/', async(req , res) => {
     
     const {nome, telefone, dataNascimento, cpf, email, senha} = filterNullValues(req.body)
-
+    const hashPwd = makeHash(senha)
     try {
         const profile = {
             email: email,
-            senha: senha,
+            senha: hashPwd,
             nome:                       nome || null,
             telefone:               telefone || null,
             dataNascimento:   new Date(dataNascimento) || null,
