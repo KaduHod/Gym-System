@@ -1,72 +1,71 @@
 const { handleErr, handleNullValue, filterNullValues } = require('../../helper/handles')
 const { compareHash, makeHash } = require('../../services/crypt')
-const { handleType } = require('../../events/register/handleType')
 const prisma = require('../database/prisma/client')
 const router = require('express').Router()
 
-
-
-
-router.get('/allProfiles', async (req, res) => {
-    const profiles = await prisma.profile.findMany()
-    res.send(profiles);
-})
 router.get('/', (req, res) => {
     res.render('register/register')
 })
 
-router.post('/', async(req , res) => {
+router.post('/', async(req, res) => {
+    const {nome, senha, cpf, email, telefone, dataNascimento } = filterNullValues(req.body)
+
+    const dataProfile = {
+        nome,
+        senha : makeHash(senha),
+        cpf : cpf || null,
+        email : email.toLowerCase(),
+        telefone,
+        dataNascimento : new Date(dataNascimento) || null,
+        type : null,
+        aluno : undefined,
+        professor : undefined
+    }
     
-    const {nome, telefone, dataNascimento, cpf, email, senha} = filterNullValues(req.body)
-    const hashPwd = makeHash(senha)
     try {
-        const profile = {
-            email: email,
-            senha: hashPwd,
-            nome:                       nome || null,
-            telefone:               telefone || null,
-            dataNascimento:   new Date(dataNascimento) || null,
-            cpf:                         cpf || null
-        }   
+        const newUser = await prisma.profile.create({data: dataProfile})
 
-        
-        const newProfile = await prisma.profile.create({ data : profile })
-        
-        res.redirect('/register/type/' + newProfile.id)
-    } catch (error) {
-        handleErr(error, res, 'Erro em cadastrar profile')
-    }
-})
-
-router.get('/type/:id', async(req, res) => {
-    try {
-        const {id} = req.params
-
-        const profile = await prisma.profile.findUnique({
-            where: { 
-                id : parseInt(id) 
-            } 
-        })
-
-        res.render('register/type', {profile: profile})
+        res.render('register/type', {user : newUser})
 
     } catch (error) {
-        handleErr(error, res, 'Erro ao renderizar pagina de registro do tipo de aluno')
+        handleErr(error, res, 'Erro ao criar profile')
     }
+    
 })
 
-router.get('/type/:id/:type/', async(req, res)=>{
+router.get('/:id/:type', async(req, res) => {
     const {id, type} = req.params
-    
-    try {
-        const newUser = await handleType({id, type})
-
-        console.log('Aqui',newUser)
-    } catch (error) {
-        handleErr(error, res, `Erro cadastrar ${type}`)
+    let message;
+    if(type == 'aluno'){
+        const newAluno = await prisma.profile.update({
+            where : {id : parseInt(id)},
+            data : {
+                aluno : {
+                    create : {}
+                },
+                type: 'aluno'
+            }
+     
+        })
+        message = 'Perfil de aluno criado'
     }
+
+    if(type == 'professor'){
+        const newProfessor = await prisma.profile.update({
+            where : {id : parseInt(id)},
+            data : {
+                professor : {
+                    create : {}
+                },
+                type: 'professor'
+            }
+        })
+        message = 'Perfil de professor criado'
+    }
+
+    res.render('login/login', {message: message})
+
+    console.log({id, type})
 })
-
-
 
 module.exports = router

@@ -1,0 +1,12 @@
+<div class="center">
+    <h1>Escolher professor</h1>
+    <form action="/aluno/professor" id="form" class="flexClolumn" method="POST">
+        <select name="professorId" id="">
+        {{#each professores}}
+            <option value="{{this.id}}">{{this.profile.nome}}</option>
+        {{/each}}
+        </select>
+        <input type="submit" value="Escolher" />
+    </form>
+    
+</div>

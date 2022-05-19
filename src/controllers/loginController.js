@@ -5,14 +5,17 @@ const passport = require('passport')
 
 
 router.get('/', async(req, res)=>{
-    res.render('login/login')
+    if(req.query.fail){
+        return res.render('login/login', {message : 'Usuario ou senha invalido'})
+    }
+    return res.render('login/login', {message: null})
 })
 
 /**
  * Rota managed by passport
  */
 router.post('/', passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/home',
     failureRedirect: '/login'
 }))
 

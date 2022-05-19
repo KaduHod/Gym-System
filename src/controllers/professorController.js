@@ -1,11 +1,26 @@
 const router = require('express').Router()
 const prisma = require('../database/prisma/client')
-const {handleErr} = require('../../helper/handles')
+const {handleErr, filterNullValues} = require('../../helper/handles')
+const Professor = require('../model/Professor')
 
 
-router.get('/', async (req, res) => {
+
+router.get('/', async(req, res)=>{
+    let user = await Professor(req.user.professorId)
+    
+
+    res.render('dashboard', {user: user})
+    
+})
+
+
+router.get('/all', async (req, res) => {
     try {
-        const professores = await prisma.professor.findMany()
+        const professores = await prisma.professor.findMany({
+            include: {
+                profile : true
+            }
+        })
 
         res.send(professores)
     } catch (error) {
@@ -13,44 +28,8 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
 
-    const { nome, email, dataNascimento } = req.body
 
-    const data = {
-        nome,
-        email
-    }
 
-    try {
-        await prisma.professor.create({data})
-        res.json({'message': 'Professor criado'})
-    } catch (error) {
-        handleErr( error, res, 'Erro ao criar professor' )
-    }
-        
-})
-
-router.get('/getAluno', async (req, res) => {
-    try {
-
-        const {id} = req.body
-
-        const professorOptions = {
-            where : {id : id},
-            include: {
-                alunos: true
-            }
-        }
-
-        const professor = await prisma.professor.findUnique(professorOptions)
-
-        res.send(professor.alunos)
-
-        console.log(professor)
-    } catch (error) {
-        handleErr( error, res, 'Erro ao requisitar aluno de professor' )
-    }
-})
 
 module.exports = router

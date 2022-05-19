@@ -10,73 +10,64 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model ProfessorProfile {
-//   id          Int         @id @unique @default(autoincrement())
-//   email       String      @unique @db.VarChar(255)
-//   senha       String      @unique
-//   professor   Professor?   
-//   professorId Int
-  
-// }
-// model AlunoProfile {
-//   id          Int         @id @unique @default(autoincrement())
-//   email       String      @unique @db.VarChar(255)
-//   senha       String      @unique
-//   aluno       Aluno?   
-//   alunoId Int
-// }
+model Profile {
+  id             Int        @id @default(autoincrement())
+  cpf            String?
+  telefone       String?
+  nome           String?
+  aluno          Aluno?     @relation(fields: [alunoId], references: [id])
+  alunoId        Int?       @unique
+  professor      Professor? @relation(fields: [professorId], references: [id])
+  professorId    Int?       @unique
+  senha          String
+  email          String     @unique
+  dataNascimento DateTime?
+  type           String?
 
-model Profile{
-  id             Int          @id @default(autoincrement())
-  nome           String?       
-  cpf            String?       
-  senha          String 
-  email          String 
-  telefone       String?      
-  aluno          Aluno?       @relation(fields: [alunoId], references: [id])
-  alunoId        Int? 
-  professor      Professor?   @relation(fields: [profesorId], references: [id])
-  profesorId     Int?   
-  online         Boolean      @default(false)
-  type           String?      
-  userId         Int?         @unique
-  dataNascimento DateTime?     
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @default(now())
 }
 
-
-
 model Aluno {
-  id             Int        @id @default(autoincrement())
-  professor      Professor? @relation(fields: [professorId], references: [id])
-  professorId    Int        
-  treinos        Treino[]
-  profile        Profile?   
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  id          Int         @id @default(autoincrement())
+  treinos     Treino[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  profile     Profile?
+  professores Professor[]
+  // Professores    ProfessoresAlunos[]
 }
 
 model Professor {
-  id            Int        @id @default(autoincrement())
-  creef         String?     
-  alunos        Aluno[]       
-  treinos       Treino[]      
-  profile       Profile?
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-}     
+  id        Int      @id @default(autoincrement())
+  creef     String?
+  treinos   Treino[]
+  profile   Profile?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Alunos         ProfessoresAlunos[]
+  alunos    Aluno[]
+}
+
+// model ProfessoresAlunos {
+//   aluno       Aluno     @relation(fields: [alunoId], references: [id])
+//   alunoId     Int
+//   professor   Professor @relation(fields: [professorId], references: [id])
+//   professorId Int
+//   assignedAt  DateTime  @default(now())
+
+//   @@id([alunoId, professorId])
+// }
 
 model Treino {
-  id          Int         @id @default(autoincrement())
-  nome        String      @db.VarChar(255)
-  aluno       Aluno       @relation(fields: [alunoId], references: [id])
-  alunoId     Int
-  professor   Professor   @relation(fields: [professorId], references: [id])
-  professorId Int
-  exercicios  Exercicio[]
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id             Int         @id @default(autoincrement())
+  nome           String      @db.VarChar(255)
+  aluno          Aluno       @relation(fields: [alunoId], references: [id])
+  alunoId        Int
+  professor      Professor   @relation(fields: [professorId], references: [id])
+  professorId    Int
+  exercicios     Exercicio[]
+  dataNascimento DateTime?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 }
 
 model Exercicio {

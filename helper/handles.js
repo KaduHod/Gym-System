@@ -20,9 +20,11 @@ const filterNullValues = (values) => {
     let objRetorno = {}
 
    Object.keys(values).forEach( key => {
-       console.log('aqui',values[key])
+       
         if(values[key] !== '' || !values[key]) objRetorno[key] = values[key]
         else objRetorno[key] = null
+
+        if(values[key].lenght == 0) objRetorno[key] = null
    })
 
    return objRetorno

@@ -2,7 +2,6 @@
     <h1>Registre-se</h1>
     <form action="/register" id="form" class="flexClolumn" method="POST">
         
-
         <input name="nome" placeholder="Digite a sua nome" type="text" />
 
         <input name="cpf" placeholder="Digite o seu cpf" type="text" />
@@ -17,14 +16,7 @@
         
         <input type="submit" value="Registre-se" />
     </form>
-    {{#if message }}
-      <p>
-        <label style="color:Red">{{ message }}</label>
-      </p>
-    {{/if}}
-    <p>
-      <a href="/users/forgot">Esqueceu sua senha?</a> | <a href="/users/signup">Não possui cadastro?</a>
-    </p>
+    
 </div>
 <script src="/js/handleFormRegister.js"></script>
 <script>

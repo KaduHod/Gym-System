@@ -5,8 +5,13 @@ const { engine } = require('express-handlebars')
 const passport = require('passport')
 const session = require('express-session')
 require('dotenv/config') 
-require('./services/auth')(passport)
-//configPassport(passport)
+require('./services/authentication/auth')(passport)
+
+const authMiddleware = (req, res, next) => {
+    if(req.isAuthenticated()) return next()
+    res.redirect('/login')
+}
+
     /**
      * Forma de ler JSON
      * middlewares
@@ -25,10 +30,12 @@ require('./services/auth')(passport)
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
-        cookie: { maxAge: 120 * 60 * 1000 }
+        cookie: { 
+            maxAge: 120 * 60 * 1000
+        },
     }))
     app.use(passport.initialize())
-    app.use(passport.session)
+    app.use(passport.session())
 
     /**
      * Arquivos estaticos
@@ -65,13 +72,15 @@ require('./services/auth')(passport)
     /**
      * Rotas bases
      */
-    app.use('/login',     loginController)
-    app.use('/register',  registerController)
-    app.use('/',          indexController)
-    app.use('/treino',    treinoController)
-    app.use('/aluno',     alunoController)
-    app.use('/professor', professorController)
-    app.use('/exercicio',  exercicioController)
+    app.use('/login',loginController)
+    app.use('/register', registerController)
+    app.use('/',          authMiddleware, indexController)
+    app.use('/treino',    authMiddleware, treinoController)
+    app.use('/aluno',     authMiddleware, alunoController)
+    app.use('/professor', authMiddleware, professorController)
+    app.use('/exercicio', authMiddleware, exercicioController)
+
+    
     
 
 
