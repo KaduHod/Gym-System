@@ -6,10 +6,9 @@ const Professor = require('../model/Professor')
 router.get('/', async(req, res)=>{
     let user = await Professor(req.user.professorId)
     
-    
     res.render('dashboard', {user: user})
-    
 })
+
 
 
 module.exports = router

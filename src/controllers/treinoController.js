@@ -1,7 +1,13 @@
 const router = require('express').Router()
+const prisma = require('../database/prisma/client')
 
 router.get('/', (req, res) => {
-    res.send('Treino')
+    res.send('listar treinos')
+})
+
+router.get('/criar', (req, res) => {
+    
+    res.render('treinos/create')
 })
 
 router.post('/', (req, res) => {

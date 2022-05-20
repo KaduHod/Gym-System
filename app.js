@@ -5,13 +5,35 @@ const { engine } = require('express-handlebars')
 const passport = require('passport')
 const session = require('express-session');
 const req = require('express/lib/request');
+const res = require('express/lib/response');
 require('dotenv/config') 
-require('./services/authentication/auth')(passport)
+//require('./services/authentication/auth')(passport)
 
-const authMiddleware = (req, res, next) => {
-    if(req.isAuthenticated()) return next()
-    res.redirect('/login')
-}
+
+    /**
+     * 
+     * Middlewares
+     */
+    const authMiddleware = (req, res, next) => {
+        //if(req.isAuthenticated()) return next()
+        //res.redirect('/login')
+        return next()
+    }
+
+    const professorMiddleware = (req, res, next) => {
+        const backURL = req.header('Referer') || '/'
+
+        if(req.user.type == 'professor' || req.user.type == 'Professor' ) return next()
+
+        res.redirect(backURL)
+    }
+    const adminMiddleware = (req, res, next) => {
+        const backURL = req.header('Referer') || '/'
+
+        if(req.user.type == 'admin' || req.user.type == 'Admin' ) return next()
+        
+        res.redirect(backURL)
+    }
 
     /**
      * Forma de ler JSON
@@ -80,10 +102,6 @@ const authMiddleware = (req, res, next) => {
     app.use('/aluno',     authMiddleware, alunoController)
     app.use('/professor', authMiddleware, professorController)
     app.use('/exercicio', authMiddleware, exercicioController)
-
-    
-    
-
 
 
 

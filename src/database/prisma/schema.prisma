@@ -60,26 +60,27 @@ model Professor {
 model Treino {
   id             Int         @id @default(autoincrement())
   nome           String      @db.VarChar(255)
-  aluno          Aluno       @relation(fields: [alunoId], references: [id])
-  alunoId        Int
+  aluno          Aluno?      @relation(fields: [alunoId], references: [id])
+  alunoId        Int?
   professor      Professor   @relation(fields: [professorId], references: [id])
   professorId    Int
   exercicios     Exercicio[]
-  dataNascimento DateTime?
+  descricao String?          @db.Text
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
 }
 
 model Exercicio {
-  id        Int           @id @default(autoincrement())
-  nome      String        @db.VarChar(255)
-  descricao String        @db.Text
-  video     String        @db.VarChar(255)
-  tipo      TipoExercicio @relation(fields: [tipoId], references: [id])
+  id        Int            @id @default(autoincrement())
+  nome      String         @db.VarChar(255)
+  descricao String?        @db.Text
+  video     String?        @db.VarChar(255)
+  tipo      TipoExercicio  @relation(fields: [tipoId], references: [id])
   tipoId    Int
   treinos   Treino[]
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  imagem    String?
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
 }
 
 //Força, resisitencia,

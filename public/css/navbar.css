@@ -7,9 +7,10 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
-    border: 1px solid grey;
+    background-color: #14090a;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.349);
     
-    border-radius: 10px;
+    border-radius: 7px;
 }
 
 .navbarContainer ul{
@@ -21,34 +22,48 @@
     width: 100%;
     padding: 0;
     
-}
-.navbarContainer li {
-    width: 90%;
-    margin: 10px;
-    transition: 300ms;
-    border-radius: 7px;
-    padding: 5px 0px;
-    display: flex;
-    justify-content: center;
-    border: 1px solid rgba(141, 141, 141, 0);
-    align-items: center;
-}
-.navbarContainer li:hover {
-    border: 1px solid rgb(141, 141, 141);
-    background-color: rgb(141, 141, 141);
     
 }
-.navbarContainer li:hover a{
-    color: rgb(255, 255, 255);
+.navbarItem {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    transition: 300ms;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    padding: 5px 10px 5px;
+    display: flex;
+    justify-content: flex-start;
+    border: 1px solid rgba(141, 141, 141, 0);
+    align-items: flex-start;
+    cursor: pointer;
+    color: white;
+
 }
-.navbarContainer a {
+.navbarItem ion-icon {
+    margin-right: 25px;
+    
+    width: 25px;
+    height: 25px;
+}
+
+.navbarItem:hover {
+    background-color: #2b0c1a;
+    
+}
+.navbarItem:hover .tituloItem{
+    color: #ffffff;
+}
+.navbarItem .tituloItem {
     color: rgb(167, 167, 167);
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
     transition: 300ms;
+    display: flex;
+    align-items: center;
 }
 .profilePhoto{
-    margin-top: 10px;
     width: 80px;
     height: 80px;
     border-radius: 40px;
@@ -65,4 +80,31 @@
 .profilePhoto a{
     color: rgba(0, 0, 0, 0);
     transition: 600ms;
+}
+.profileContainer{
+    width: 100%;
+    height:30vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    
+}
+
+
+
+
+
+.menuList{
+    
+}
+.menuItem{
+    margin-left: 20px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: rgb(167, 167, 167);
+    transition: 100ms;
+}
+.menuItem:hover{
+    padding-left: 10px;
 }
