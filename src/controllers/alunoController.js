@@ -9,12 +9,10 @@ const Aluno = require('../model/Aluno')
 router.get('/', async(req, res) => {
     let user = await Aluno(req.user.alunoId)
 
-    console.log(user)
-
     if(user.professores.lenght == 0){
         return res.redirect('/aluno/professor')
     }else{
-        return res.send('cadastro de aluno finalizado!')
+        return res.render('dashboard', {user:user})
     }
 
 })

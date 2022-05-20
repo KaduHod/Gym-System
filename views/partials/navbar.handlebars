@@ -1,0 +1,12 @@
+<div class="navbarContainer">
+    <ul class="navbar">
+        <div class="profilePhoto"><a href="">Perfil</a></div>
+        <li><a href="">Treinos</a></li>
+        <li><a href="">Alunos</a></li>
+        <li><a href="">Exercícios</a></li>
+        {{#if user.profile.alunoId}}
+            <li><a href="">Minhas medidas</a></li>
+        {{/if}}
+        <li><a href="">Log out</a></li>
+    </ul>
+</div>

@@ -3,7 +3,8 @@ const app = express()
 const path = require('path');
 const { engine } = require('express-handlebars')
 const passport = require('passport')
-const session = require('express-session')
+const session = require('express-session');
+const req = require('express/lib/request');
 require('dotenv/config') 
 require('./services/authentication/auth')(passport)
 
