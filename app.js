@@ -1,13 +1,17 @@
 const express = require('express')
 const app = express()
 const path = require('path');
-const { engine } = require('express-handlebars')
+const {engine} = require('express-handlebars')
+const hb = require('handlebars')
 const passport = require('passport')
 const session = require('express-session');
 const req = require('express/lib/request');
 const res = require('express/lib/response');
+const moment = require("moment");
+const flash = require('connect-flash');
+
 require('dotenv/config') 
-//require('./services/authentication/auth')(passport)
+require('./services/authentication/auth')(passport)
 
 
     /**
@@ -15,8 +19,8 @@ require('dotenv/config')
      * Middlewares
      */
     const authMiddleware = (req, res, next) => {
-        //if(req.isAuthenticated()) return next()
-        //res.redirect('/login')
+        if(req.isAuthenticated()) return next()
+        res.redirect('/login')
         return next()
     }
 
@@ -59,6 +63,7 @@ require('dotenv/config')
     }))
     app.use(passport.initialize())
     app.use(passport.session())
+    app.use(flash())
 
     /**
      * Arquivos estaticos
@@ -79,6 +84,15 @@ require('dotenv/config')
     app.engine('handlebars', engine(handlebarsOptions))
     app.set('view engine', 'handlebars')
     app.set('views', path.join(__dirname + '/views'))
+
+    hb.registerHelper('dateFormat', function (date, options) {
+        const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "DD/MM/YYYY"
+        return moment(date).format(formatToUse);
+    });
+
+    hb.registerHelper('dateNow', () => {
+        return new Date();
+    });
 
     /**
      * Controllers
@@ -102,6 +116,10 @@ require('dotenv/config')
     app.use('/aluno',     authMiddleware, alunoController)
     app.use('/professor', authMiddleware, professorController)
     app.use('/exercicio', authMiddleware, exercicioController)
+    app.use('/logout',    authMiddleware, (req, res)=>{
+        req.logout()
+        res.redirect('/login')
+    })
 
 
 

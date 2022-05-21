@@ -41,6 +41,7 @@ model Professor {
   creef     String?
   treinos   Treino[]
   profile   Profile?
+  exercicios Exercicio[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // Alunos         ProfessoresAlunos[]
@@ -75,10 +76,12 @@ model Exercicio {
   nome      String         @db.VarChar(255)
   descricao String?        @db.Text
   video     String?        @db.VarChar(255)
-  tipo      TipoExercicio  @relation(fields: [tipoId], references: [id])
-  tipoId    Int
+  tipo      TipoExercicio?  @relation(fields: [tipoId], references: [id])
+  tipoId    Int?
   treinos   Treino[]
   imagem    String?
+  criador   Professor      @relation (fields: [criadorId], references: [id])
+  criadorId Int
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
 }
@@ -88,7 +91,7 @@ model TipoExercicio {
   id        Int         @id @default(autoincrement())
   nome      String      @db.Char(11)
   descricao String      @db.VarChar(255)
-  exercicio Exercicio[]
+  exercicios Exercicio[]
 }
 
 //tipo de serio como lenta excentrica ou algo do tipo

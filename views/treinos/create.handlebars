@@ -1,7 +1,12 @@
 <div class="flex">
     {{> navbar }}
-    <div class="borderRed">
+    <div class="Container">
         <h1>Criar Treino</h1>
-        
+        <form action="/treino" method="post">
+            <div class="form-group">
+                <input type="text" name="nome" class="form-control" placeholder="Digite o nome do Treino">
+                
+            </div>
+        </form>
     </div>
 </div>

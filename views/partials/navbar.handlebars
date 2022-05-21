@@ -8,8 +8,8 @@
         <li class="navbarItem up">
             <div class="tituloItem" href=""><ion-icon name="bicycle-outline"></ion-icon> <span>Treinos</span></div>
             <ul class="menuList">
-                <li class="menuItem">Criar</li>
-                <li class="menuItem">Listar</li>
+                <li class="menuItem"> <a href="/treino/">Criar</a> </li>
+                <li class="menuItem"><a href="/treino/listar">Listar</a> </li>
             </ul>
         </li>
         {{!-- {{#if user.profile.professorId}} --}}
@@ -20,26 +20,26 @@
                 <li class="menuItem">Listar</li>
             </ul>
         </li>
-        {{!-- {{/if}} --}}
+        
         <li class="navbarItem up">
             <div class="tituloItem"><ion-icon name="barbell-outline"></ion-icon><span>Exercícios</span></div>
             <ul class="menuList">
-                <li class="menuItem">Criar</li>
-                <li class="menuItem">Listar</li>
+                <li class="menuItem"><a href="/exercicio/">Criar</a></li>
+                <li class="menuItem"><a href="/exercicio/listar">Listar</a></li>
             </ul>
         </li>
-        {{!-- {{#if user.profile.alunoId}} --}}
+        {{!-- {{/if}}
+        {{#if user.profile.alunoId}} --}}
         <li class="navbarItem up">
             <div class="tituloItem"><ion-icon name="calculator-outline"></ion-icon><span>Medidas</span> </div>
             <ul class="menuList">
                 <li class="menuItem">Criar</li>
                 <li class="menuItem">Listar</li>
-                <li class="menuItem">Listar</li>
             </ul>
         </li>
         {{!-- {{/if}} --}}
         <li class="navbarItem" id="logout">
-            <div class="tituloItem"><ion-icon name="log-out-outline"></ion-icon><span>Log out</span></div>
+            <div class="tituloItem"><ion-icon name="log-out-outline"></ion-icon><span><a href="/logout">Log out</a></span></div>
         </li>
     </ul>
 </div>

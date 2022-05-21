@@ -6,18 +6,18 @@ const prisma = require('../database/prisma/client')
  * @returns retorna query com alunos e profile de alunos
  */
 const Professor = async (professorId) => {
-    let professor = await prisma.professor.findFirst({
+    return await prisma.professor.findFirst({
         where : {id : professorId},
         include : {
+            profile : true,
+            exercicios: true,
             alunos : {
                 include : {
-                    profile : true
+                    profile : true 
                 }
             },
-            profile : true
         }
     })
-    return professor
 }
 
 module.exports =  Professor 

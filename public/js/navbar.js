@@ -49,16 +49,27 @@ const verificaUp = (menuList) => {
     return menuList.classList.contains('up')
 }
 
+/**
+ * 
+ * @param {*} menuList item a ter classe css de mostrar
+ */
 const mostrarMenuList = (menuList) =>{
     menuList.classList.remove('up')
     menuList.classList.add('drop')
 }
 
+/**
+ * 
+ * @param {*}  menuList item a ter classe css de esconder
+ */
 const esconderMenuList = (menuList) => {
     menuList.classList.remove('drop')
     menuList.classList.add('up')
 }
 
+/**
+ * Esconde todos os elementos
+ */
 const cleanDrops = () => {
     let navbarItems = [... document.getElementsByClassName('navbarItem')]
     navbarItems.forEach( item => {
@@ -66,6 +77,11 @@ const cleanDrops = () => {
     })
 }
 
+/**
+ * 
+ * @param {*} pointer ponteiro do evento
+ * gerencia a oção de mostrar menu
+ */
 const handleDropDown = (pointer) => {
 
     

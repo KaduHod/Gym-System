@@ -30,3 +30,70 @@ main{
 .borderRed{
     border: 1px solid red;
 }
+a{
+    color: rgb(167, 167, 167);
+    text-decoration: none;
+}
+a:hover{
+    color: rgb(167, 167, 167);
+    text-decoration: none;
+}
+.Container{
+    width: 85vw;
+    height: 100vh;
+    padding: 20px;
+}
+.form-control:active{
+    border: none;
+}
+.acoes{
+    
+    
+}
+.icone{
+    transition: 100ms;
+    cursor: pointer;
+}
+.icone:hover{
+    transform: scale(1.4);
+}
+.iconeExcluir{
+    color: rgb(136, 53, 53);
+}
+.iconeEditar{
+    color: rgb(76, 155, 76);
+}
+.listTitleContainer{
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    justify-content:space-between;
+    padding: 10px;
+    align-items: center;
+}
+.listTitleContainer a{
+    height: fit-content;
+    width: fit-content;
+}
+.msg{
+    width: fit-content;
+    padding: 10px;
+    display: flex;
+    border-radius: 5px;
+    color: white;
+    transform: translateY(-200px);
+    animation: msg 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275) 30ms forwards;
+}
+.successMsg{
+    background-color: rgba(55, 146, 55, 0.596);
+}
+.failMsg{
+    background-color: rgba(175, 53, 53, 0.596);
+}
+
+@keyframes msg {
+    to{
+        transform: translateY(0px);
+        
+    }
+}
