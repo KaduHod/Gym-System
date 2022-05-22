@@ -21,6 +21,7 @@ model Profile {
   professorId    Int?       @unique
   senha          String
   email          String     @unique
+  image          String?
   dataNascimento DateTime?
   type           String?
 

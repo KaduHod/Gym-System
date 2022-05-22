@@ -2,23 +2,17 @@ const prisma = require('../../src/database/prisma/client')
 const { compareHash, makeHash } = require('../crypt')
 const LocalStrategy = require('passport-local').Strategy
 
-const findProfileByEmail = async(email) => {
-    return await prisma.profile.findUnique({
-        where: {email:email}
-    })
+const findProfileByEmail = async(email) => { 
+    return await prisma.profile.findUnique({where: {email:email} }) 
 }
 
 const findProfileById = async(id) => {
-    return prisma.profile.findUnique({
-        where : {id: parseInt(id)}
-    })
+    return prisma.profile.findUnique({ where : {id: parseInt(id)} })
 }
 
 module.exports = async (passport) => {
 
-    passport.serializeUser( (user, done) => {
-        done(null, user.id)
-    })
+    passport.serializeUser( (user, done) => { done(null, user.id) })
 
     passport.deserializeUser( async(id, done) =>{
         try {

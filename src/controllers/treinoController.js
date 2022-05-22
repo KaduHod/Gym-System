@@ -1,13 +1,13 @@
 const router = require('express').Router()
 const Professor = require('../model/Professor')
+const { Exercicios, Exercicio } = require('../model/Exercicio')
 const prisma = require('../database/prisma/client')
 
 router.get('/', async(req, res) => {
+    let professor = await Professor(req.user.professorId)
+    let exercicios = await Exercicios()
     
-    let user = 'oi' /* await Professor(req.user.professorId)
- */
-    
-    res.render('treinos/create', {user: user})
+    res.render('treinos/create', {professor, exercicios, user : professor})
 })
 
 router.post('/', (req, res) => {

@@ -9,7 +9,6 @@
     align-items: flex-start;
     background-color: #14090a;
     box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.26);
-    
     border-radius: 7px;
 }
 
@@ -66,12 +65,24 @@
 .profilePhoto{
     width: 80px;
     height: 80px;
-    border-radius: 40px;
+    border-radius:45% 55% 59% 41% / 23% 33% 67% 77% ;
     background-color: aliceblue;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    box-shadow:
+  1.5px 1.6px 1.3px rgba(0, 0, 0, 0.037),
+  3.2px 3.6px 2.8px rgba(0, 0, 0, 0.059),
+  5.5px 6.2px 4.5px rgba(0, 0, 0, 0.075),
+  8.5px 9.5px 6.8px rgba(0, 0, 0, 0.088),
+  12.6px 14.1px 9.9px rgba(0, 0, 0, 0.1),
+  18.5px 20.8px 14.8px rgba(0, 0, 0, 0.113),
+  27.8px 31.1px 23px rgba(0, 0, 0, 0.127),
+  44.3px 49.6px 39.2px rgba(0, 0, 0, 0.146),
+  83px 93px 80px rgba(0, 0, 0, 0.19)
+;
+
     
 }
 .profilePhoto:hover a{

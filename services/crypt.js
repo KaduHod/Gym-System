@@ -16,8 +16,6 @@ const makeHash = pwd => {
  * @param {*} pwdDB senha do DB
  * @returns Ve se senha do formulario é igual a do DB
  */
-const compareHash = (pwd, pwdDB) => {
-    return bcrypt.compareSync(pwd, pwdDB)
-}
+const compareHash = (pwd, pwdDB) => { return bcrypt.compareSync(pwd, pwdDB) }
 
 module.exports = { compareHash, makeHash }

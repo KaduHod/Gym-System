@@ -17,4 +17,22 @@ const Exercicios = async () => {
     })
 }
 
-module.exports = { Exercicios }
+/**
+ * 
+ * @returns retorna exercicio
+ */
+const Exercicio = async (id) => {
+    return await prisma.exercicio.findUnique({
+        where : {id : id},
+        include : {
+            criador : {
+                include : {
+                    profile : true
+                }
+            }
+        }
+    })
+}
+
+
+module.exports = { Exercicios, Exercicio }

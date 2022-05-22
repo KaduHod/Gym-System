@@ -89,6 +89,7 @@ const handleDropDown = (pointer) => {
     let escondido = verificaUp(navbarItem)
     console.log(escondido)
     cleanDrops() 
+        
     escondido ? mostrarMenuList(navbarItem) : esconderMenuList(navbarItem)  
     
 

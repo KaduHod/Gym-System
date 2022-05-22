@@ -1,12 +1,11 @@
 const express = require('express')
 const app = express()
 const path = require('path');
-const {engine} = require('express-handlebars')
+const { engine } = require('express-handlebars')
 const hb = require('handlebars')
 const passport = require('passport')
 const session = require('express-session');
 const req = require('express/lib/request');
-const res = require('express/lib/response');
 const moment = require("moment");
 const flash = require('connect-flash');
 
@@ -14,14 +13,15 @@ require('dotenv/config')
 require('./services/authentication/auth')(passport)
 
 
-    /**
+    /**=========================================================================
+     * /**=========================================================================
      * 
      * Middlewares
      */
     const authMiddleware = (req, res, next) => {
         if(req.isAuthenticated()) return next()
-        res.redirect('/login')
-        return next()
+        return res.redirect('/login')
+         
     }
 
     const professorMiddleware = (req, res, next) => {
@@ -29,19 +29,35 @@ require('./services/authentication/auth')(passport)
 
         if(req.user.type == 'professor' || req.user.type == 'Professor' ) return next()
 
+        req.flash('fail','Permissão negada')
         res.redirect(backURL)
     }
+
+    const alunoMiddleware = (req, res, next) => {
+        const backURL = req.header('Referer') || '/'
+
+        if(req.user.type == 'aluno' || req.user.type == 'Aluno' ) return next()
+
+        req.flash('fail','Permissão negada')
+        res.redirect(backURL)
+    }
+
     const adminMiddleware = (req, res, next) => {
         const backURL = req.header('Referer') || '/'
 
         if(req.user.type == 'admin' || req.user.type == 'Admin' ) return next()
-        
+
+        req.flash('fail','Permissão negada')
         res.redirect(backURL)
     }
 
-    /**
+
+
+    /**=========================================================================
+     * /**=========================================================================
      * Forma de ler JSON
      * middlewares
+     * 
      */
     app.use(
         express.urlencoded({
@@ -50,7 +66,11 @@ require('./services/authentication/auth')(passport)
     ) 
     app.use(express.json())
 
-    /**
+
+
+
+    /**=========================================================================
+     * /**=========================================================================
      * Session
      */
     app.use(session({
@@ -65,12 +85,18 @@ require('./services/authentication/auth')(passport)
     app.use(passport.session())
     app.use(flash())
 
-    /**
+
+
+    /**=========================================================================
+     * /**=========================================================================
      * Arquivos estaticos
      */
     app.use(express.static(__dirname + '/public'))
 
-    /**
+
+
+    /**=========================================================================
+     * /**=========================================================================
      * Tamplate Engine
      */
     const handlebarsOptions = {
@@ -80,21 +106,49 @@ require('./services/authentication/auth')(passport)
             allowProtoMethodsByDefault: true,
         }
     }
-
     app.engine('handlebars', engine(handlebarsOptions))
     app.set('view engine', 'handlebars')
     app.set('views', path.join(__dirname + '/views'))
 
+
+
+    /**=========================================================================
+     * /**=========================================================================
+     * Handlebars Helpers
+    */
     hb.registerHelper('dateFormat', function (date, options) {
+        if(date == null) return ''
         const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "DD/MM/YYYY"
         return moment(date).format(formatToUse);
     });
+    hb.registerHelper('dateInputValue', function (date) {
+        return new Date(date).toISOString().split('T')[0]
+    });
+
+    hb.registerHelper('isProfessor', function(type){
+        if(type == 'professor') return true
+        return false
+    })
+
+    hb.registerHelper('getProfilePhoto', function(){
+        console.log(req.user)
+        return req.user.image
+    })
 
     hb.registerHelper('dateNow', () => {
         return new Date();
     });
 
-    /**
+    hb.registerHelper('url_path', ()=>{
+        return process.env.URL_PATH
+    })
+
+
+
+
+
+    /**=========================================================================
+     * /**=========================================================================
      * Controllers
      */
     const pathController = './src/controllers/'
@@ -105,13 +159,20 @@ require('./services/authentication/auth')(passport)
     const loginController     = require(pathController + 'loginController' )
     const registerController  = require(pathController + 'registerController' )
     const exercicioController = require(pathController + 'exercicioController')
+    const profileController = require(pathController + 'profileController')
 
-    /**
+
+
+
+
+    /**=========================================================================
+     * /**=========================================================================
      * Rotas bases
      */
     app.use('/login',loginController)
     app.use('/register', registerController)
     app.use('/',          authMiddleware, indexController)
+    app.use('/profile',   authMiddleware, profileController)
     app.use('/treino',    authMiddleware, treinoController)
     app.use('/aluno',     authMiddleware, alunoController)
     app.use('/professor', authMiddleware, professorController)

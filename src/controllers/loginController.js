@@ -5,9 +5,7 @@ const passport = require('passport')
 
 
 router.get('/', async(req, res)=>{
-    if(req.query.fail){
-        return res.render('login/login', {message : 'Usuario ou senha invalido'})
-    }
+    if(req.query.fail) return res.render('login/login', {message : 'Usuario ou senha invalido'})
     return res.render('login/login', {message: null})
 })
 

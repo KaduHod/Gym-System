@@ -1,0 +1,31 @@
+.BoxProfileImage{
+    min-width: 350px;
+    min-height: 350px;
+    margin-bottom: 50px;
+    border-radius:20% 80% 59% 41% / 75% 40% 60% 25% ;
+    box-shadow: 0px 5px 20px rgb(66, 66, 66);
+}
+.BoxProfileImage{
+    color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1000ms;
+    cursor: pointer;
+    
+}
+.BoxProfileImage:hover {
+    color: rgba(0, 0, 0, 0.596);
+}
+#PreviewImage{
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-clip: content-box;
+}
+.profilePhoto{
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-clip: content-box;
+}

@@ -1,6 +1,8 @@
 <div class="navbarContainer">
     <div class="profileContainer" >
-        <div class="profilePhoto"><a href="">Perfil</a></div>
+        <div
+         style="background-image: url('/storage/profiles/{{ user.profile.image }}')"
+         class="profilePhoto"></div>
     </div>
     
     <ul class="navbar">
@@ -16,8 +18,8 @@
         <li class="navbarItem up">
             <div class="tituloItem"><ion-icon name="people-outline"></ion-icon> <span>Alunos</span></div>
             <ul class="menuList">
-                <li class="menuItem">Criar</li>
-                <li class="menuItem">Listar</li>
+                <li class="menuItem"><a href="/professor/aluno/criar">Criar</a> </li>
+                <li class="menuItem"><a href="/professor/aluno/listar">Listar</a> </li>
             </ul>
         </li>
         

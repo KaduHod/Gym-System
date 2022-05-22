@@ -1,0 +1,50 @@
+<div class="flex">
+    {{> navbar }}
+    <div class="Container">
+        
+        {{#if messages.success}}
+            <div class="msg successMsg">
+                {{messages.success}}
+            </div>
+        {{/if}}        
+        {{#if messages.fail}}
+            <div class="msg failMsg">
+                {{messages.fail}}
+            </div>
+        {{/if}}   
+        <div class="listTitleContainer">
+            <h1>Lista de Alunos</h1>
+            <a class="btn btn-dark" href="">Criar aluno</a>
+        </div>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">email</th>
+                  <th scope="col">telefone</th>
+                  <th scope="col">Nascimento</th>
+                  <th scope="col">Criado em</th>
+                  <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each alunos}}
+                <tr>
+                  <td>{{this.profile.nome}}</td>
+                  <td>{{this.profile.email}}</td>
+                  <td>{{this.profile.telefone}}</td>
+                  <td>{{dateFormat this.profile.dataNascimento }}</td>
+                  <td>{{dateFormat this.createdAt "d/m/y"}}</td>
+                  <td class="acoes">
+                      <a href="/exercicio/edit/{{this.id}}"><ion-icon name="hammer-outline" class="icone iconeEditar"></ion-icon></a>
+                      
+                      <a href="/exercicio/delete/{{this.id}}/false"><ion-icon class="icone iconeExcluir" name="trash-outline"></ion-icon></a>
+                      
+                  </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    
+</div>

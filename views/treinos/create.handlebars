@@ -1,12 +1,54 @@
 <div class="flex">
     {{> navbar }}
     <div class="Container">
-        <h1>Criar Treino</h1>
-        <form action="/treino" method="post">
-            <div class="form-group">
-                <input type="text" name="nome" class="form-control" placeholder="Digite o nome do Treino">
-                
+        {{#if messages.success}}
+            <div class="msg successMsg">
+                {{messages.success}}
             </div>
+        {{/if}}        
+        {{#if messages.fail}}
+            <div class="msg failMsg">
+                {{messages.fail}}
+            </div>
+        {{/if}}
+        <h1>Criar Treino</h1>
+        <form action="/treino" class="TreinoFormContainer" method="post" style="">
+            <div class="InputContainerTreino">
+                <div class="InputContainerTreinoInner paddingR" >
+                    <label for="aluno">Nome</label>
+                    <input type="text" name="nome" class="form-control" placeholder="Digite o nome do Treino">
+                    <label for="aluno">Aluno</label>
+                    <select name="aluno" class="form-control" id="aluno">
+                        <option value=false>Sem aluno</option>
+                        {{#each professor.alunos}}
+                            <option value="{{this.profile.id}}">{{this.profile.nome}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="InputContainerTreinoInner paddingL">
+                    <label for="">Descrição do treino</label>
+                    <textarea class="form-control" name="descricao" id="" cols="30" rows="5">
+                        Adicione uma descrição ao treino
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="">
+                <label for="exerciciosProfessor">Exercicios do professor</label>
+                <select name="exerciciosProfessor" class="form-control" id="exerciciosProfessor">
+                    {{#each professor.exercicios}}
+                        <option value="{{this.id}}">{{this.nome}}</option>
+                    {{/each}}
+                </select>
+                <label for="exercicios">Todos os exercícios</label>
+                <select name="exercicios" class="form-control" id="exercicios">
+                    {{#each exercicios}}
+                        <option value="{{this.id}}">{{this.nome}}</option>
+                    {{/each}}
+                </select>
+            </div>          
+
+            <button class="btn btn-dark" type="submit">Salvar</button>
         </form>
     </div>
 </div>

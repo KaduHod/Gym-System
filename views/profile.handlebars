@@ -1,0 +1,66 @@
+<div class="flex">
+    {{> navbar }}
+    <div class="Container">
+        {{#if messages.success}}
+            <div class="msg successMsg">
+                {{messages.success}}
+            </div>
+        {{/if}}        
+        {{#if messages.fail}}
+            <div class="msg failMsg">
+                {{messages.fail}}
+            </div>
+        {{/if}}  
+        <div class="listTitleContainer">
+            <h1>{{user.profile.nome}}</h1>
+            <div class="btn btn-dark" >Alguma coisa</div>
+        </div>
+        <form action="/{{user.profile.type}}/profile" method="post" class="ContainerFlexColumn" enctype="multipart/form-data">
+            <div class="Linha">
+                <div class="Box form-group">
+                    <label for="nome"> Nome </label>
+                    <input type="text" name="nome" id="nome" class="form-control" placeholder="Digite o seu nome" value="{{user.profile.nome}}">
+
+                    <label for="email"> Email </label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Digite o seu email" value="{{user.profile.email}}">
+
+                    <label for="telefone"> Telefone </label>
+                    <input type="text" name="telefone" id="telefone" onkeypress="mask(this, mphone);"  class="form-control" placeholder="Digite o telefone" value="{{user.profile.telefone}}">
+
+                    <label for="cpf"> CPF </label>
+                    <input type="text" name="cpf" id="cpf" class="form-control" placeholder="Digite o seu cpf" value="{{user.profile.cpf}}">
+
+                    {{#if (isProfessor user.profile.type)}}
+                    <label for="creef"> Creef </label>
+                    <input type="text" name="creef" id="creef" class="form-control" placeholder="Digite o seu creef" value="{{user.creef}}">
+                    {{/if}}
+
+                    <label for="dataNascimento"> Data de nascimento </label>
+                    <input type="date" name="dataNascimento" id="dataNascimento" class="form-control" placeholder="" value="{{dateInputValue user.profile.dataNascimento "Y-M-D"}}">
+
+                    <label for="novaSenha"> Nova senha </label>
+                    <input type="password" name="novaSenha" id="novaSenha" class="form-control" placeholder="" value="">
+
+                    <label for="confSenha"> Digite a nova senha novamente </label>
+                    <input type="password" name="confSenha" id="confSenha" class="form-control" placeholder="" value="">
+
+                    <label for="oldPass">Para confirmar as mudanças digite a senha atual</label>
+                    <input type="password" required name="oldPass" id="oldPass" class="form-control" placeholder="" value="">
+
+                    <button class="btn btn-dark" type="submit">Salvar Alterações</button>
+
+                </div>
+                <div class="Box XcenterYTop">
+                    <div class="BoxProfileImage" id="PreviewImage" style="background-image: url('/storage/profiles/{{user.profile.image}}')" alt="">
+                       <h3>Alterar foto</h3>
+                    </div>
+                    <input  name="imagem" id="imagem" accept='image/*' capture class="form-control" type="file">
+                </div>
+                
+            </div>
+        </form>
+        
+    </div>
+</div>
+<script src="/js/profileForm.js"></script>
+<script src="/js/imagePreview.js"></script>

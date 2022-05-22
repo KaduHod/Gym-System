@@ -3,8 +3,9 @@ const prisma = require('../database/prisma/client')
 
 router.get('/home', (req, res)=>{
     let user = req.user
-    console.log(user)
+    req.flash('success',`Bem vindo novamente, ${req.user.nome}`)
     if(user.type == 'professor' || user.type == 'Professor'){
+        
         res.redirect('/professor')
     }
     if(user.type == 'aluno' || user.type == 'Aluno'){
