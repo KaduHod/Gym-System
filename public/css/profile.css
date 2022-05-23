@@ -3,19 +3,19 @@
     min-height: 350px;
     margin-bottom: 50px;
     border-radius:20% 80% 59% 41% / 75% 40% 60% 25% ;
-    box-shadow: 0px 5px 20px rgb(66, 66, 66);
-}
-.BoxProfileImage{
+    box-shadow: 0px 5px 20px rgb(19, 19, 19);
     color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 1000ms;
+    transition: 200ms cubic-bezier(0.47, 0, 0.745, 0.715);
     cursor: pointer;
     
 }
 .BoxProfileImage:hover {
     color: rgba(0, 0, 0, 0.596);
+    transform: scale(1.05);
+    box-shadow: 0px 20px 30px rgba(66, 66, 66, 0.589);
 }
 #PreviewImage{
     background-position:center;

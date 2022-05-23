@@ -16,9 +16,9 @@
             <div class="InputContainerTreino">
                 <div class="InputContainerTreinoInner paddingR" >
                     <label for="aluno">Nome</label>
-                    <input type="text" name="nome" class="form-control" placeholder="Digite o nome do Treino">
+                    <input type="text" name="nome" class="inputGym" placeholder="Digite o nome do Treino">
                     <label for="aluno">Aluno</label>
-                    <select name="aluno" class="form-control" id="aluno">
+                    <select name="aluno" class="inputGym" id="aluno">
                         <option value=false>Sem aluno</option>
                         {{#each professor.alunos}}
                             <option value="{{this.profile.id}}">{{this.profile.nome}}</option>
@@ -27,25 +27,32 @@
                 </div>
                 <div class="InputContainerTreinoInner paddingL">
                     <label for="">Descrição do treino</label>
-                    <textarea class="form-control" name="descricao" id="" cols="30" rows="5">
+                    <textarea class="inputGym" name="descricao" id="" cols="30" rows="5">
                         Adicione uma descrição ao treino
                     </textarea>
                 </div>
             </div>
+            <hr>
 
-            <div class="">
-                <label for="exerciciosProfessor">Exercicios do professor</label>
-                <select name="exerciciosProfessor" class="form-control" id="exerciciosProfessor">
-                    {{#each professor.exercicios}}
-                        <option value="{{this.id}}">{{this.nome}}</option>
-                    {{/each}}
-                </select>
-                <label for="exercicios">Todos os exercícios</label>
-                <select name="exercicios" class="form-control" id="exercicios">
-                    {{#each exercicios}}
-                        <option value="{{this.id}}">{{this.nome}}</option>
-                    {{/each}}
-                </select>
+            <div class="borderRed Flex">
+                <div>
+                    <label for="exerciciosProfessor">Exercicios do professor</label>
+                    <select name="exerciciosProfessor" class="inputGym" id="exerciciosProfessor">
+                        {{#each professor.exercicios}}
+                            <option value="{{this.id}}">{{this.nome}}</option>
+                        {{/each}}
+                    </select>
+                    <label for="exercicios">Todos os exercícios</label>
+                    <select name="exercicios" class="inputGym" id="exercicios">
+                        {{#each exercicios}}
+                            <option value="{{this.id}}">{{this.nome}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div>
+                    oi
+                </div>
+                
             </div>          
 
             <button class="btn btn-dark" type="submit">Salvar</button>

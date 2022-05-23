@@ -42,5 +42,6 @@
   },
   "prisma": {
     "schema": "src/database/prisma/schema.prisma"
-  }
+  },
+  "keywords": []
 }

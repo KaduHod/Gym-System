@@ -70,7 +70,7 @@ const esconderMenuList = (menuList) => {
 /**
  * Esconde todos os elementos
  */
-const cleanDrops = () => {
+const clearDrops = () => {
     let navbarItems = [... document.getElementsByClassName('navbarItem')]
     navbarItems.forEach( item => {
         if(item.classList.contains('drop')) esconderMenuList(item)
@@ -83,23 +83,15 @@ const cleanDrops = () => {
  * gerencia a oção de mostrar menu
  */
 const handleDropDown = (pointer) => {
-
-    
-    let navbarItem = getElFromPath(pointer.path, 'navbarItem')[0]
-    let escondido = verificaUp(navbarItem)
-    console.log(escondido)
-    cleanDrops() 
-        
+    let navbarItem   = getElFromPath(pointer.path, 'navbarItem')[0]
+    let escondido    = verificaUp(navbarItem)
+    clearDrops()  
     escondido ? mostrarMenuList(navbarItem) : esconderMenuList(navbarItem)  
-    
-
 }
 
 
 navbarItems.forEach( el => {
-    if(el.id !== 'logout'){
-        el.addEventListener('click', handleDropDown)
-    }
+    if(el.id !== 'logout'){ el.addEventListener('click', handleDropDown) }
 })
 
 

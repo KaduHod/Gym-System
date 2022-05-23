@@ -1,8 +1,13 @@
 body{
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    background-image: url('/img/ondas vermelho.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+h1{
+    color: white;
 }
 header{
     width: 100%;
@@ -13,6 +18,58 @@ main{
     flex-direction: column;
     padding: 0px;
 }
+label{
+    color: rgba(71, 71, 71, 0);
+    margin-left: 15px;
+    transform: translateY(-20px);
+    background-color: rgba(255, 255, 255, 0);
+    width: fit-content;
+    font-weight: bolder;
+    
+    animation: labelAnimation 1000ms cubic-bezier(0.175, 0.885, 0.32, 1.015) 100ms forwards;
+}
+@keyframes labelAnimation {
+    100%{
+        transform: translateY(0px);
+        color: rgb(255, 255, 255);
+        
+    }
+}
+
+.inputGym{
+    border-radius: .375rem;
+    border: 1px solid #ced4da00;
+    padding: .375rem .75rem;
+    margin-bottom: 5px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    outline: none;
+    color: rgb(0, 0, 0);
+    transform: translateY(-10px);
+    animation: inputAnimation 1000ms cubic-bezier(0.175, 0.885, 0.32, 1.015) 100ms forwards;
+}
+
+.inputGym::placeholder{
+    color: black;
+}
+.labelFile h3{
+    color: transparent;
+    transition: 600ms;
+}
+.labelFile h3:hover {
+    color: rgba(0, 0, 0, 0.479);
+}
+
+@keyframes inputAnimation {
+    to{
+        transform: translateY(0px);
+        background-color: rgb(255, 255, 255);
+        border: 1px solid #ced4dafa;
+    }
+}
+
+
+
 .flexClolumn{
     display: flex;
     flex-direction: column;
@@ -81,21 +138,27 @@ a:hover{
     padding: 10px;
     display: flex;
     border-radius: 5px;
+    border: 1px solid var(--red_darker);
     color: white;
     transform: translateY(-200px);
-    animation: msg 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275) 30ms forwards;
+    animation: msg 10000ms cubic-bezier(0.175, 0.885, 0.32, 1.05) 30ms infinite;
 }
 .successMsg{
-    background-color: rgba(55, 146, 55, 0.596);
+    border-color: var(--red_darker);
 }
 .failMsg{
     background-color: rgba(175, 53, 53, 0.596);
 }
 
 @keyframes msg {
-    to{
+    5%{
         transform: translateY(0px);
-        
+    }
+    80%{
+        transform: translateY(0px);
+    }
+    100%{
+        transform: translateY(-200px);
     }
 }
 

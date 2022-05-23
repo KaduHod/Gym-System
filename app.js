@@ -8,6 +8,7 @@ const session = require('express-session');
 const req = require('express/lib/request');
 const moment = require("moment");
 const flash = require('connect-flash');
+const { dateFormat, dateInputValue, isProfessor, dateNow } = require('./helper/handlebars')
 
 require('dotenv/config') 
 require('./services/authentication/auth')(passport)
@@ -51,8 +52,6 @@ require('./services/authentication/auth')(passport)
         res.redirect(backURL)
     }
 
-
-
     /**=========================================================================
      * /**=========================================================================
      * Forma de ler JSON
@@ -65,9 +64,6 @@ require('./services/authentication/auth')(passport)
         }),
     ) 
     app.use(express.json())
-
-
-
 
     /**=========================================================================
      * /**=========================================================================
@@ -85,15 +81,11 @@ require('./services/authentication/auth')(passport)
     app.use(passport.session())
     app.use(flash())
 
-
-
     /**=========================================================================
      * /**=========================================================================
      * Arquivos estaticos
      */
     app.use(express.static(__dirname + '/public'))
-
-
 
     /**=========================================================================
      * /**=========================================================================
@@ -110,17 +102,27 @@ require('./services/authentication/auth')(passport)
     app.set('view engine', 'handlebars')
     app.set('views', path.join(__dirname + '/views'))
 
-
-
     /**=========================================================================
      * /**=========================================================================
      * Handlebars Helpers
     */
+   
+    /* const url_path = process.env.URL_PATH
+    const getProfilePhoto =  () =>{ return req.user.image || null}
+
+    hb.registerHelper('dateFormat', dateFormat(date))
+    hb.registerHelper('dateInputValue', dateInputValue(date))
+    hb.registerHelper('isProfessor', isProfessor(type))
+    hb.registerHelper('getProfilePhoto', getProfilePhoto())
+    hb.registerHelper('dateNow', dateNow)
+    hb.registerHelper('url_path', url_path) */
+
     hb.registerHelper('dateFormat', function (date, options) {
         if(date == null) return ''
         const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "DD/MM/YYYY"
         return moment(date).format(formatToUse);
     });
+
     hb.registerHelper('dateInputValue', function (date) {
         return new Date(date).toISOString().split('T')[0]
     });
@@ -131,7 +133,6 @@ require('./services/authentication/auth')(passport)
     })
 
     hb.registerHelper('getProfilePhoto', function(){
-        console.log(req.user)
         return req.user.image
     })
 

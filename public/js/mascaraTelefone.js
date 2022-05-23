@@ -1,14 +1,10 @@
 
 function mask(o, f) {
-
     setTimeout(function() {
-
         var v = mphone(o.value);
 
-        if (v != o.value) {
-            o.value = v;
-        }
-
+        if (v != o.value) o.value = v;
+        
     }, 1);
 }
 

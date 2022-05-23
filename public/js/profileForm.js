@@ -3,8 +3,6 @@ const inputs = form.getElementsByTagName('input')
 var { confSenha, novaSenha, oldPass } = inputs
 const button = form.getElementsByTagName('button')[0]
 
-
-
 /**
  * 
  * tira confirmação de senha como required ou bota
@@ -53,16 +51,12 @@ const setRequire   = el => { el.setAttribute('required', '') }
 
 const unSetRequire = el => { el.removeAttribute('required')}
 
-
-
 /**
  * 
  * @returns Verifica se tem nova senha
  * se sim retorna true e torna campo de confirmação de senha required
  */
 const notNullOrEmpty = (valor) => { return (valor && valor.length > 0 && valor !== '') ? true : false }
-
-
 
 /**
  * Controla submit
@@ -82,7 +76,6 @@ const handleSubmit = evt => {
 
     return form.submit()
 }
-
 
 novaSenha.addEventListener('keydown', handleRequireConfSenha)
 button.addEventListener('click', handleRequire)

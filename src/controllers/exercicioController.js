@@ -103,9 +103,7 @@ router.post('/edit/:id', upload.single('imagem') ,async (req, res) => {
     try {
 
         if(req.file) {
-            imagem = req.file.filename 
-    
-            deletarArquivo('exercicios',exercicio.imagem)
+            imagem = req.file.filename; deletarArquivo('exercicios',exercicio.imagem)
         }
 
         await prisma.exercicio.update({
