@@ -105,12 +105,15 @@ margin: 5px;
       107px 99px 185px -2px rgba(0, 0, 0, 0.21)
     ;
 }
+
 .ExercicioDescription{
     text-align:start;
 }
+
 .containerExercicioRemove ion-icon{
     transition: 200ms;
 }
+
 .containerExercicioRemove:hover ion-icon{
     transform: scale(1.4);
 }

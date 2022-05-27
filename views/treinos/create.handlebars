@@ -20,9 +20,9 @@
                     <label for="aluno">Aluno</label>
                     <select name="aluno" class="inputGym" id="aluno">
                         <option value=false>Sem aluno</option>
-                        {{!-- {{#each professor.alunos}}
+                        {{#each professor.alunos}}
                             <option value="{{this.profile.id}}">{{this.profile.nome}}</option>
-                        {{/each}} --}}
+                        {{/each}}
                     </select>
                 </div>
                 <div class="InputContainerTreinoInner paddingL">
@@ -47,11 +47,13 @@
                     <div class="containerExercicioContent">
                         <h3>Exercicio Nº: 1</h3>
                         <label for="exercicio-1"> Exercício </label>
-                        <select class="inputGym" name="exercicio-1" id="exercicio-1">
-                            <option value=""></option>
+                        <select class="inputGym" id="selec1exercicio" name="exercicio-1" id="exercicio-1">
+                            {{#each exercicios}}
+                                <option value="{{this.id}}">{{this.nome}}</option>
+                            {{/each}} 
                         </select>
                         <div class="ExercicioDescription">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate hic tenetur asperiores aut excepturi pariatur, itaque eveniet. Obcaecati, placeat. Temporibus sint ab et eaque qui optio unde voluptatibus officiis sunt.
+                            {{exercicios.0.descricao}}
                         </div>
                         <div>
                             <label for="series-exercicio-1">Séries
@@ -78,10 +80,13 @@
     </div>
 </div>
 
-<script src="/js/treino.js"></script>
+
 
 <script>
-    let exercicios = "{{toJson exercicios}}"
-    
+    const exercicios = {{{toJson exercicios}}}
+    const exerciciosProfessor = {{{toJson professor.exercicios}}}    
+
     
 </script>
+
+<script src="/js/treino.js"></script>

@@ -141,7 +141,7 @@ a:hover{
     border: 1px solid var(--red_darker);
     color: white;
     transform: translateY(-200px);
-    animation: msg 10000ms cubic-bezier(0.175, 0.885, 0.32, 1.05) 30ms infinite;
+    animation: msg 300ms cubic-bezier(0.175, 0.885, 0.32, 1.05) 30ms forwards;
 }
 .successMsg{
     border-color: var(--red_darker);
@@ -151,14 +151,8 @@ a:hover{
 }
 
 @keyframes msg {
-    5%{
+    to{
         transform: translateY(0px);
-    }
-    80%{
-        transform: translateY(0px);
-    }
-    100%{
-        transform: translateY(-200px);
     }
 }
 

@@ -29,6 +29,14 @@ const treinoForm = document.forms[0]
 const addButton = document.getElementById('add')
 const ContainerComExercicios = document.getElementById('ExerciciosContainer')
 
+
+const handleExercicioChoice = evt => {
+    let exercicio = exercicios.filter(e=>{return e.id==evt.target.value})
+    evt.target.nextElementSibling.innerText = exercicio[0].descricao
+}
+
+
+
 const createNovoExercicioContainer = cont => {
 
     /**
@@ -56,7 +64,14 @@ const createNovoExercicioContainer = cont => {
             select.classList.add('inputGym')
             select.setAttribute('name',`exercicio-${cont}`)
             select.setAttribute('id',`exercicio-${cont}`)
+            exercicios.forEach( exercicio => {
+                let optionExercicio = document.createElement('option')
+                    optionExercicio.setAttribute('value', exercicio.id)
+                    optionExercicio.innerText = exercicio.nome
+                    select.appendChild(optionExercicio)
+            } )
 
+            select.addEventListener('change', handleExercicioChoice)
 
         let exercicioDescription = document.createElement('div')    
             exercicioDescription.classList.add('ExercicioDescription')
@@ -157,14 +172,28 @@ const replaceCounter = (str, counter) => {
 
     let regexIdNameFor = /-\d/g
     let regexh3 = /: \d/g
-    let new_str_1 = new_str.replace(regexIdNameFor, `-${counter}`)
-    let new_str_2 = new_str_1.replace(regexh3, `: ${counter}`)
+    let new_str_1;
+    let new_str_2;
+
+    if(counter > 9){
+        console.log('aqui')
+        regexIdNameFor = /-\d\d/g
+        regexh3 = /: \d\d/g
+
+        /* new_str_1 = new_str.replace(regexIdNameFor, `-${counter}`)
+        new_str_2 = new_str_1.replace(regexh3, `: ${counter}`)
+
+        return new_str_2 */
+    }
+
+
+    new_str_1 = new_str.replace(regexIdNameFor, `-${counter}`)
+    new_str_2 = new_str_1.replace(regexh3, `: ${counter}`)
     
     return new_str_2
 }
 
 const removeExercicio = evt => {    
-    console.log('oi')
     try {
         ContainerComExercicios.removeChild(evt.target.parentNode)
     } catch (error) {
@@ -185,3 +214,4 @@ const handleAddExercicio = evt => {
 
 
 addButton.addEventListener('click', handleAddExercicio)
+document.getElementById('selec1exercicio').addEventListener('change', handleExercicioChoice)
