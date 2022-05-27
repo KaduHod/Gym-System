@@ -144,6 +144,14 @@ require('./services/authentication/auth')(passport)
         return process.env.URL_PATH
     })
 
+    hb.registerHelper('toJson', value => {
+        return JSON.stringify(value)
+    })
+
+    hb.registerHelper('toString', value => {
+        return value.toString()
+    })
+
 
 
 
@@ -160,7 +168,7 @@ require('./services/authentication/auth')(passport)
     const loginController     = require(pathController + 'loginController' )
     const registerController  = require(pathController + 'registerController' )
     const exercicioController = require(pathController + 'exercicioController')
-    const profileController = require(pathController + 'profileController')
+    const profileController   = require(pathController + 'profileController')
 
 
 
@@ -181,6 +189,10 @@ require('./services/authentication/auth')(passport)
     app.use('/logout',    authMiddleware, (req, res)=>{
         req.logout()
         res.redirect('/login')
+    })
+
+    app.use('/testeView', (req, res)=>{
+        res.render('treinos/create')
     })
 
 

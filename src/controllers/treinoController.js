@@ -6,7 +6,6 @@ const prisma = require('../database/prisma/client')
 router.get('/', async(req, res) => {
     let professor = await Professor(req.user.professorId)
     let exercicios = await Exercicios()
-    
     res.render('treinos/create', {professor, exercicios, user : professor})
 })
 

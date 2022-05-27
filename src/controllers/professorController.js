@@ -18,10 +18,6 @@ const upload = multer({ storage: storage})
 const { compareHash, makeHash } = require('../../services/crypt')
 const { isEqual, checkMinLength } = require('../../helper/validarFormHelper')
 
-
-
-
-
 router.get('/', async(req, res)=>{
     let user = await Professor(req.user.professorId)
 

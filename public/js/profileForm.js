@@ -1,7 +1,17 @@
-const form = [... document.forms][0]
-const inputs = form.getElementsByTagName('input')
-var { confSenha, novaSenha, oldPass } = inputs
-const button = form.getElementsByTagName('button')[0]
+const formProfile = [... document.forms][0]
+const inputs = formProfile.getElementsByTagName('input')
+var { confSenha, novaSenha, oldPass, cpf } = inputs
+const button = formProfile.getElementsByTagName('button')[0]
+
+
+
+/**
+ * Bota mascara de cpf
+ */
+const putMaskCpf = () => {
+    cpf.value = maskCpf(cpf.value)
+}
+
 
 /**
  * 
@@ -67,16 +77,17 @@ const handleSubmit = evt => {
     /** se usuario digitar nova senha **/
     if (notNullOrEmpty(novaSenha.value)) {
 
-        if(checkMinLength(novaSenha.value, 8) && isEqual(novaSenha.value, confSenha.value)) return form.submit() 
+        if(checkMinLength(novaSenha.value, 8) && isEqual(novaSenha.value, confSenha.value)) return formProfile.submit() 
         else{
             console.log('Avisar user sobre Erro de senha')
             return
         }
     } 
 
-    return form.submit()
+    return formProfile.submit()
 }
 
+cpf.addEventListener('focusout', putMaskCpf)
 novaSenha.addEventListener('keydown', handleRequireConfSenha)
 button.addEventListener('click', handleRequire)
-form.addEventListener('submit', handleSubmit)
+formProfile.addEventListener('submit', handleSubmit)

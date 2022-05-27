@@ -28,7 +28,7 @@
                     <input type="text" name="telefone" id="telefone" onkeypress="mask(this, mphone);"  class="inputGym" placeholder="Digite o telefone" value="{{user.profile.telefone}}">
 
                     <label for="cpf"> CPF </label>
-                    <input type="text" name="cpf" id="cpf" class="inputGym" placeholder="Digite o seu cpf" value="{{user.profile.cpf}}">
+                    <input type="text" name="cpf" id="cpf" maxlength="11" class="inputGym" placeholder="Digite o seu cpf" value="{{user.profile.cpf}}">
 
                     {{#if (isProfessor user.profile.type)}}
                     <label for="creef"> Creef </label>
@@ -62,5 +62,6 @@
         
     </div>
 </div>
+<script src="/js/regexValidate.js"></script>
 <script src="/js/profileForm.js"></script>
 <script src="/js/imagePreview.js"></script>
