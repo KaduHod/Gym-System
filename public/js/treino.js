@@ -62,7 +62,8 @@ const createNovoExercicioContainer = cont => {
 
         let select = document.createElement('select')
             select.classList.add('inputGym')
-            select.setAttribute('name',`exercicio-${cont}`)
+            //select.setAttribute('name',`exercicio-${cont}`)
+            select.setAttribute('name',`exercicios[]`)
             select.setAttribute('id',`exercicio-${cont}`)
             exercicios.forEach( exercicio => {
                 let optionExercicio = document.createElement('option')
@@ -75,6 +76,7 @@ const createNovoExercicioContainer = cont => {
 
         let exercicioDescription = document.createElement('div')    
             exercicioDescription.classList.add('ExercicioDescription')
+            exercicioDescription.innerText = exercicios[0].descricao
 
         /* let textarea = document.createElement('textarea')
             textarea.setAttribute('name',`descricao-exercicio-${cont}`)
@@ -89,22 +91,25 @@ const createNovoExercicioContainer = cont => {
                 labelSeries.innerText = 'Séries'
             let series = document.createElement('input')
                 series.classList.add('inputGym')
-                series.setAttribute('name',`series-exercicio-${cont}`)
+                //series.setAttribute('name',`series-exercicio-${cont}`)
+                series.setAttribute('name',`series[]`)
                 series.setAttribute('type',`number`)
                 series.setAttribute('id',`series-exercicio-${cont}`)
 
 
             let labelreps = document.createElement('label') 
                 labelreps.setAttribute('for',`reps-exercicio-${cont}`)
-                labelreps.innerText = 'Reps'
+                labelreps.innerText = 'Repetições'
             let reps = document.createElement('input')
                 reps.classList.add('inputGym')
-                reps.setAttribute('name',`reps-exercicio-${cont}`)
+                //reps.setAttribute('name',`reps-exercicio-${cont}`)
+                reps.setAttribute('name',`reps[]`)
                 reps.setAttribute('type',`number`)
                 reps.setAttribute('id',`reps-exercicio-${cont}`)
 
-                labelreps.appendChild(reps)
+                
                 labelSeries.appendChild(series)
+                labelreps.appendChild(reps)
     /**
      * Container para remover
      */
@@ -121,8 +126,9 @@ const createNovoExercicioContainer = cont => {
             containerExercicioContent.appendChild(select)
             containerExercicioContent.appendChild(exercicioDescription)
             containerExercicioContent.appendChild(divSeriesReps)
-                divSeriesReps.appendChild(labelreps)
                 divSeriesReps.appendChild(labelSeries)
+                divSeriesReps.appendChild(labelreps)
+                
 
         containerExercicio.appendChild(containerExercicioRemove)
         containerExercicioRemove.addEventListener('click', removeExercicio)
@@ -176,14 +182,9 @@ const replaceCounter = (str, counter) => {
     let new_str_2;
 
     if(counter > 9){
-        console.log('aqui')
+        
         regexIdNameFor = /-\d\d/g
         regexh3 = /: \d\d/g
-
-        /* new_str_1 = new_str.replace(regexIdNameFor, `-${counter}`)
-        new_str_2 = new_str_1.replace(regexh3, `: ${counter}`)
-
-        return new_str_2 */
     }
 
 
@@ -214,4 +215,4 @@ const handleAddExercicio = evt => {
 
 
 addButton.addEventListener('click', handleAddExercicio)
-document.getElementById('selec1exercicio').addEventListener('change', handleExercicioChoice)
+document.getElementById('select1exercicio').addEventListener('change', handleExercicioChoice)

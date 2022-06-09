@@ -87,7 +87,7 @@ const handleSubmit = evt => {
     return formProfile.submit()
 }
 
-cpf.addEventListener('focusout', putMaskCpf)
+cpf.addEventListener('change', putMaskCpf)
 novaSenha.addEventListener('keydown', handleRequireConfSenha)
 button.addEventListener('click', handleRequire)
 formProfile.addEventListener('submit', handleSubmit)

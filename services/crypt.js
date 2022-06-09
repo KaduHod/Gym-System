@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs')
 
 /**
- * 
  * @param {*} pwd Senha do formulario
  * @returns senha com hash
  */
@@ -11,7 +10,6 @@ const makeHash = pwd => {
 } 
 
 /**
- * 
  * @param {*} pwd senha do form
  * @param {*} pwdDB senha do DB
  * @returns Ve se senha do formulario é igual a do DB

@@ -8,7 +8,7 @@ const maskCpf = (valor) => {
     let regex = /^(\d{3})(\d{3})(\d{3})(\d{2})/
     let onlyNumber = regexMatch(onlyNumberRegex, valor) 
     
-    if(!onlyNumber) return false
+    if(!onlyNumber) return 
 
     return  valor.replace(regex, '$1.$2.$3-$4')
 }

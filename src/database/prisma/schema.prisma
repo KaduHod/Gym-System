@@ -38,15 +38,15 @@ model Aluno {
 }
 
 model Professor {
-  id        Int      @id @default(autoincrement())
-  creef     String?
-  treinos   Treino[]
-  profile   Profile?
+  id         Int         @id @default(autoincrement())
+  creef      String?
+  treinos    Treino[]
+  profile    Profile?
   exercicios Exercicio[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
   // Alunos         ProfessoresAlunos[]
-  alunos    Aluno[]
+  alunos     Aluno[]
 }
 
 // model ProfessoresAlunos {
@@ -60,38 +60,51 @@ model Professor {
 // }
 
 model Treino {
-  id             Int         @id @default(autoincrement())
-  nome           String      @db.VarChar(255)
-  aluno          Aluno?      @relation(fields: [alunoId], references: [id])
-  alunoId        Int?
-  professor      Professor   @relation(fields: [professorId], references: [id])
-  professorId    Int
-  exercicios     Exercicio[]
-  descricao String?          @db.Text
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
+  id          Int       @id @default(autoincrement())
+  nome        String    @db.VarChar(255)
+  aluno       Aluno?    @relation(fields: [alunoId], references: [id])
+  alunoId     Int?
+  professor   Professor @relation(fields: [professorId], references: [id])
+  professorId Int
+  exercicios  Exercicio_do_treino[]
+  descricao   String?  @db.Text
+  aquecimento String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Exercicio {
-  id        Int            @id @default(autoincrement())
-  nome      String         @db.VarChar(255)
-  descricao String?        @db.Text
-  video     String?        @db.VarChar(255)
-  tipo      TipoExercicio?  @relation(fields: [tipoId], references: [id])
-  tipoId    Int?
-  treinos   Treino[]
-  imagem    String?
-  criador   Professor      @relation (fields: [criadorId], references: [id])
-  criadorId Int
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
+  id                  Int                   @id @default(autoincrement())
+  nome                String                @db.VarChar(255)
+  descricao           String?               @db.Text
+  video               String?               @db.VarChar(255)
+  tipo                TipoExercicio?        @relation(fields: [tipoId], references: [id])
+  tipoId              Int?
+  imagem              String?
+  criador             Professor             @relation(fields: [criadorId], references: [id])
+  criadorId           Int
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  treinos Exercicio_do_treino[]
+}
+
+model Exercicio_do_treino {
+  id          Int       @id @default(autoincrement())
+  exercicio   Exercicio @relation(fields: [exercicioId], references: [id])
+  exercicioId Int
+  series      Int
+  repeticoes  Int
+  treino      Treino   @relation(fields: [treinoId], references: [id])
+  treinoId    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 //Força, resisitencia,
 model TipoExercicio {
-  id        Int         @id @default(autoincrement())
-  nome      String      @db.Char(11)
-  descricao String      @db.VarChar(255)
+  id         Int         @id @default(autoincrement())
+  nome       String      @db.Char(11)
+  descricao  String      @db.VarChar(255)
   exercicios Exercicio[]
 }
 

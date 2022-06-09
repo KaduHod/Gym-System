@@ -19,15 +19,14 @@
                     <input type="text" name="nome" class="inputGym" placeholder="Digite o nome do Treino">
                     <label for="aluno">Aluno</label>
                     <select name="aluno" class="inputGym" id="aluno">
-                        <option value=false>Sem aluno</option>
                         {{#each professor.alunos}}
-                            <option value="{{this.profile.id}}">{{this.profile.nome}}</option>
+                            <option value="{{this.id}}">{{this.profile.nome}}</option>
                         {{/each}}
                     </select>
                 </div>
                 <div class="InputContainerTreinoInner paddingL">
                     <label for="">Descrição do treino</label>
-                    <textarea class="inputGym" name="descricao" id="" cols="30" rows="4">
+                    <textarea class="inputGym" name="descricao" id="" cols="30" rows="1">
                         Adicione uma descrição ao treino
                     </textarea>
                 </div>
@@ -38,7 +37,7 @@
                 <div class="containerExercicio" data-allowed-to-remove=false>
                     <div class="containerExercicioContent">
                         <h3>Aquecimento</h3>
-                        <textarea class="inputGym" name="descricao-exercicio-1" id="" cols="30" rows="3">
+                        <textarea class="inputGym" name="aquecimento" id="" cols="30" rows="1">
                             Adicione ao aquecimento
                         </textarea>
                     </div>
@@ -47,7 +46,7 @@
                     <div class="containerExercicioContent">
                         <h3>Exercicio Nº: 1</h3>
                         <label for="exercicio-1"> Exercício </label>
-                        <select class="inputGym" id="selec1exercicio" name="exercicio-1" id="exercicio-1">
+                        <select class="inputGym" id="select1exercicio" name="exercicios[]" id="exercicio-1">
                             {{#each exercicios}}
                                 <option value="{{this.id}}">{{this.nome}}</option>
                             {{/each}} 
@@ -57,10 +56,10 @@
                         </div>
                         <div>
                             <label for="series-exercicio-1">Séries
-                                <input class="inputGym" type="number" name="series-exercicio-1">
+                                <input class="inputGym" type="number" name="series[]">
                             </label>
                             <label for="reps-exercicio-1">Repetições
-                                <input class="inputGym" type="number" name="reps-exercicio-1">
+                                <input class="inputGym" type="number" name="reps[]">
                             </label>
                         </div>
                     </div>
@@ -85,8 +84,6 @@
 <script>
     const exercicios = {{{toJson exercicios}}}
     const exerciciosProfessor = {{{toJson professor.exercicios}}}    
-
-    
 </script>
 
 <script src="/js/treino.js"></script>

@@ -1,0 +1,17 @@
+<div class="flex">
+    {{> navbar }}
+    <div class="Container">
+        {{#if messages.success}}
+            <div class="msg successMsg">
+                {{messages.success}}
+            </div>
+        {{/if}}        
+        {{#if messages.fail}}
+            <div class="msg failMsg">
+                {{messages.fail}}
+            </div>
+        {{/if}}
+        <p style="color: white;">oi</p>
+        
+    </div>
+</div>

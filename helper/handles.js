@@ -3,20 +3,11 @@ const handleErr = (err, res, msg) => {
     console.log(err)
 }
 
-const handleNullValue = (valor) => {
-    
-    if(valor.lenght < 0) return null
-
-    return valor ? valor : null
-
-}
-
 /**
- * 
  * @param {*} values objeto com valores de inputs
  * @returns objeto adicionando null em inputs sem valor
  */
-const filterNullValues = (values) => {
+const filterNullValues = values => {
     let objRetorno = {}
 
    Object.keys(values).forEach( key => {
@@ -29,5 +20,7 @@ const filterNullValues = (values) => {
 
    return objRetorno
 }
+
+const handleNullValue = valor => valor && valor.lenght > 0 ? valor : null
 
 module.exports = {handleErr, handleNullValue, filterNullValues}

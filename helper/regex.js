@@ -1,3 +1,1 @@
-const regexMatch = (regex, str) => {
-    return regex.test(str)
-}
+const regexMatch = (regex, str) =>  regex.test(str)

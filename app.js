@@ -1,13 +1,14 @@
 const express = require('express')
 const app = express()
 const path = require('path');
-const { engine } = require('express-handlebars')
 const hb = require('handlebars')
 const passport = require('passport')
 const session = require('express-session');
 const req = require('express/lib/request');
 const moment = require("moment");
 const flash = require('connect-flash');
+const logger = require('./helper/logs')
+const { engine } = require('express-handlebars')
 const { dateFormat, dateInputValue, isProfessor, dateNow } = require('./helper/handlebars')
 
 require('dotenv/config') 
@@ -160,7 +161,7 @@ require('./services/authentication/auth')(passport)
      * /**=========================================================================
      * Controllers
      */
-    const pathController = './src/controllers/'
+    const pathController      = './src/controllers/'
     const indexController     = require(pathController + 'indexController' )
     const treinoController    = require(pathController + 'treinoController' )
     const alunoController     = require(pathController + 'alunoController' )
@@ -201,8 +202,8 @@ try {
     const port = process.env.PORT || 9000
     app.listen(port)
 
-    console.log( 'Servidor rodando em http://localhost:' + port )
+    logger.info( 'Servidor rodando em http://localhost:' + port )
 } catch ( error ) {
-    console.log( error )
+    logger.error( error )
 }
 
